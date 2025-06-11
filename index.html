@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Ferrari é merda</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    #container {
+      text-align: center;
+      font-size: 2rem;
+      padding: 20px;
+      border-radius: 15px;
+      
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .hidden {
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .visible {
+      opacity: 1;
+      transition: opacity 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .timer {
+      margin-top: 20px;
+      font-size: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div id="text" class="visible">(Fica até ao final)</div>
+    <div class="timer" id="timer" style="display: none;"></div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const frases = [
+        "Oláaaaaa",
+        "Olha quem ela é",
+        "A dorminhoca", 
+        "O sono estava mesmo pegado",
+        "Pois pois",
+        "Olha sabes o que fiz até",
+        "Um fundo rosinha para ti hahaha",
+        "Mas prontos...",
+        "Pergunta rápida",
+        "Sabes o quanto és especial para mim?",
+        "Acho que deves perfeitamente saber",
+        "Agora que tenho a tua atenção",
+        "E tenho de aproveitar",
+        "Para te dizer uma coisa",
+        "Que deves saber",
+        "18 de Junho de 2024 ás 18:43",
+        "Lembra-te algo?",
+        "Claro, um dia muito especial",
+        "Me lembrei porque isso é o código",
+        "Do meu telemóvel",
+        "Para não me esquecer :)",
+        "Sinceramente",
+        "Como eu tenho absoluto tédio",
+        "Eu faço estas coisas estúpidas hahahah",
+        "Uma semana para 1 ano mágico",
+        "Até fiz uma contagem para veres o tempo que me aturas",
+        "(Não estava á espera de tanto credo)"
+      ];
+
+      const textDiv = document.getElementById("text");
+      const timerDiv = document.getElementById("timer");
+
+      let index = 0;
+
+      function mostrarFrase() {
+        if (index < frases.length) {
+          textDiv.classList.remove("visible");
+          textDiv.classList.add("hidden");
+
+          setTimeout(() => {
+            textDiv.textContent = frases[index];
+            textDiv.classList.remove("hidden");
+            textDiv.classList.add("visible");
+            index++;
+            setTimeout(mostrarFrase, 4000);
+          }, 1000);
+        } else {
+          mostrarContador();
+        }
+      }
+
+      function mostrarContador() {
+        textDiv.classList.remove("visible");
+        textDiv.classList.add("hidden");
+
+        setTimeout(() => {
+          textDiv.style.display = "none";
+          timerDiv.style.display = "block";
+          atualizarContador();
+          setInterval(atualizarContador, 1000);
+        }, 1000);
+      }
+
+      function atualizarContador() {
+        const inicio = new Date("2024-06-18T18:43:00");
+        const agora = new Date();
+        let diff = Math.floor((agora - inicio) / 1000);
+
+        const dias = Math.floor(diff / (60 * 60 * 24));
+        diff %= 60 * 60 * 24;
+        const horas = Math.floor(diff / 3600);
+        diff %= 3600;
+        const minutos = Math.floor(diff / 60);
+        const segundos = diff % 60;
+
+        timerDiv.innerHTML = `Estamos juntos há:<br>
+          ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos`;
+      }
+
+      // Iniciar a sequência
+      setTimeout(mostrarFrase, 3000);
+    });
+  </script>
+</body>
+</html>
